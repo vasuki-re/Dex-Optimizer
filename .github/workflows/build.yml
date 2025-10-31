@@ -27,6 +27,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: "Dex-Optimizer.zip"
+        tag_name: ${{ github.event.inputs.tag_name || github.ref_name }}
         name: "Dex-Optimizer ${{ github.event.inputs.tag_name || github.ref_name }}"
         body: |
           ## Dex-Optimizer
