@@ -19,4 +19,4 @@ It optimizes app by translating the app's dalvik bytecode to machine code which 
 - dexoptimizer.log file is created and timestamps after dexopt command is completed will be appended to the log file.
 
 # Note
-- This Module is not open source,this code is compiled to c binary to reduce battery usage and to access kernel parameters.
+- This Module is not open source,this uses compiled to c binary to reduce battery usage and to access kernel parameters.
