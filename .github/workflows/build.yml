@@ -30,7 +30,7 @@ jobs:
         name: "Dex-Optimizer ${{ github.event.inputs.tag_name || github.ref_name }}"
         body: |
           ## Dex-Optimizer
-          -Module to improve battery backup by optimizing apps automatically when phone is charging and have 100% charge.
+          - Module to improve battery backup by optimizing apps automatically when phone is charging and have 100% charge.
         generate_release_notes: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
