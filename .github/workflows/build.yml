@@ -19,7 +19,7 @@ jobs:
     - name: Create Package
       run: |
         zip -9 -r "Dex-Optimizer.zip" \
-          binary/dex-optimizer \
+          binary/dex_optimizer \
           service.sh \
           module.prop
     - name: Release
