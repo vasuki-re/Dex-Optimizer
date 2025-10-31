@@ -1,0 +1,36 @@
+name: Dex-Optimizer
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag'
+        required: true
+        default: 'v1.0'
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Create Package
+      run: |
+        zip -9 -r "Dex-Optimizer.zip" \
+        /binary/Dex-Optimizer \
+          customize.sh \
+          service.sh \
+          module.prop \
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: "Dex-Optimizer.zip"
+        tag_name: ${{ github.ref_name || github.event.inputs.tag_name }}
+        name: "Dex-Optimizer ${{ github.ref_name || github.event.inputs.tag_name }}"
+        body: |
+          ## Dex-Optimizer
+     -  Module to improve battery backup by optimizing apps automatically when phone is charging and have 100% charge.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
