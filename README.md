@@ -1,4 +1,4 @@
-#Dex Optimizer
+#Dex-Optimizer
 
 This module is designed specifically for alioth devices.
 
