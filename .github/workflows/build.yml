@@ -19,7 +19,7 @@ jobs:
     - name: Create Package
       run: |
         zip -9 -r "Dex-Optimizer.zip" \
-          /binary/Dex-Optimizer \
+          binary/dex-optimizer \
           service.sh \
           module.prop
     - name: Release
@@ -30,7 +30,7 @@ jobs:
         name: "Dex-Optimizer ${{ github.event.inputs.tag_name || github.ref_name }}"
         body: |
           ## Dex-Optimizer
-          Module to improve battery backup by optimizing apps automatically when phone is charging and have 100% charge.
+          -Module to improve battery backup by optimizing apps automatically when phone is charging and have 100% charge.
         generate_release_notes: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
