@@ -2,7 +2,6 @@ name: Build and Release Dex Optimizer
 
 on:
   push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
