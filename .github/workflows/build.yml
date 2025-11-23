@@ -1,0 +1,53 @@
+name: Build and Release Dex Optimizer
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r26b
+
+    - name: Compile Dex Optimizer
+      run: |
+        $ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
+        -target aarch64-linux-android24 \
+        -Oz -flto -ffunction-sections -fdata-sections \
+        -fno-unwind-tables -fno-asynchronous-unwind-tables \
+        -Wl,--gc-sections,--strip-all,--build-id=none \
+        -o dex_optimizer dex_optimizer.c
+
+    - name: Prepare Artifacts
+      run: |
+        mkdir -p binary
+        mv dex_optimizer binary/
+
+    - name: Get Version
+      id: get_version
+      run: |
+        VERSION=$(grep "version=" module.prop | cut -d= -f2)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Zip Release
+      run: |
+        zip -r Dex-Optimizer-${{ env.VERSION }}.zip binary/dex_optimizer module.prop service.sh
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: Dex-Optimizer-${{ env.VERSION }}.zip
+        tag_name: v${{ env.VERSION }}
+        name: Dex Optimizer v${{ env.VERSION }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
