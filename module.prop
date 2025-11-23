@@ -1,0 +1,6 @@
+id=dexoptimizer
+name=Dex Optimizer
+version=1.0
+versionCode=1
+author=Vasuki
+description=Runs DexOpt when phone is charged to 100%.
