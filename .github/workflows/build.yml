@@ -1,7 +1,6 @@
 name: Build and Release Dex Optimizer
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
