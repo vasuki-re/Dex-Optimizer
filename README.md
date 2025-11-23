@@ -8,7 +8,7 @@ Dexopt converts app's bytecode (dex) into optimized machine code (odex) that run
   
 ## Features 💊
 
-- Improves SOT (Screen on Time) and Battery Backup #Claimed #By #Users
+- Improves SOT (Screen on Time) and Battery Backup [Claimed By Users]
 - Speeds up App startup time.
 
 ## Installation
