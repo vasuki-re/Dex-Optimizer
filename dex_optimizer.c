@@ -73,14 +73,7 @@ void start_dexopt() {
     }
 }
 
-void stop_dexopt() {
-    if (dexopt_pid != -1) {
-        kill(dexopt_pid, SIGKILL);
-        waitpid(dexopt_pid, NULL, 0);
-        dexopt_pid = -1;
-        write_log("Dexopt Interrupted");
-    }
-}
+
 
 void handle_sigchld(int sig) {
     int status;
@@ -110,10 +103,6 @@ void check_state() {
     if (is_charging) {
         if (capacity == 100 && !dexopt_run_this_cycle && dexopt_pid == -1) {
             start_dexopt();
-        }
-    } else {
-        if (dexopt_pid != -1) {
-            stop_dexopt();
         }
     }
 }
