@@ -73,6 +73,15 @@ void start_dexopt() {
     }
 }
 
+void stop_dexopt() {
+    if (dexopt_pid != -1) {
+        kill(dexopt_pid, SIGKILL);
+        waitpid(dexopt_pid, NULL, 0);
+        dexopt_pid = -1;
+        write_log("Dexopt Interrupted");
+    }
+}
+
 void handle_sigchld(int sig) {
     int status;
     pid_t pid;
@@ -92,12 +101,20 @@ void check_state() {
     char status[32];
     read_str_from_file(BATTERY_STATUS_PATH, status, sizeof(status));
 
+    int is_charging = (strcasecmp(status, "Charging") == 0 || strcasecmp(status, "Full") == 0);
+
     if (capacity <= 99) {
         dexopt_run_this_cycle = 0;
     }
 
-    if (capacity == 100 && !dexopt_run_this_cycle && dexopt_pid == -1) {
-        start_dexopt();
+    if (is_charging) {
+        if (capacity == 100 && !dexopt_run_this_cycle && dexopt_pid == -1) {
+            start_dexopt();
+        }
+    } else {
+        if (dexopt_pid != -1) {
+            stop_dexopt();
+        }
     }
 }
 
