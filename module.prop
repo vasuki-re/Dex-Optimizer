@@ -1,6 +1,6 @@
 id=dexoptimizer
 name=Dex Optimizer
-version=1.1
+version=1.2
 versionCode=1
 author=Vasuki
 description=Runs DexOpt when phone is charged to 100%.
