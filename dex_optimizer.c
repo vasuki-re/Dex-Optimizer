@@ -125,7 +125,7 @@ int main() {
             if (len > 0) {
                 int found = 0;
                 for (ssize_t i = 0; i < len; i += strlen(buf + i) + 1) {
-                    if (strstr(buf + i, "power_supply")) {
+                    if (strstr(buf + i, "battery") && strstr(buf + i, "change")) {
                         found = 1;
                         break;
                     }
